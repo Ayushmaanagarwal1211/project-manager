@@ -114,6 +114,7 @@ let [member,setMember]=useState('')
       setNewTask('');
       setDescription('');
       handleClose()
+      window.location.reload()
       // navigate('/all-tasks', { state: { tasks: [...tasks, task] } });
     }
   };

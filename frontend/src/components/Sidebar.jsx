@@ -20,6 +20,20 @@ const Sidebar = () => {
             title: "All tasks",
             icon: <CgNotes className="icon" />,
             link: '/alltasks',
+        },{
+            title: "Incomplete tasks",
+            icon: <CgNotes className="icon" />,
+            link: '/incompletetasks',
+        },{
+            title: "Completed tasks",
+            icon: <CgNotes className="icon" />,
+            link: '/completedtasks',
+            
+        },{
+            title: "Project Details",
+            icon: <CgNotes className="icon" />,
+            link: '/projectdetails',
+            
         }
     ];
 
@@ -40,7 +54,12 @@ const Sidebar = () => {
             </div>
             <div className="sidebar-footer">    
                 {/* Chat Button */}
-               
+                <Link to="/chat" className="sidebar-item sidebar-chat">
+                    <div className="icon">
+                        <BsChatDots />
+                    </div>
+                    <div className="title">Chat</div>
+                </Link>
                 {/* Logout Button */}
                 <button onClick={()=>window.location.href="/"} className="logout-button">
                     Logout

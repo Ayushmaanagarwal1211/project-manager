@@ -6,7 +6,7 @@ import { FaEdit } from "react-icons/fa";   // Edit icon
 import { MdDelete } from "react-icons/md"; // Delete icon
 import InputData from './Inputdata';
 import EditPopup from './EditPopup';
-
+import {FaCheck} from 'react-icons/fa6'
 const Cards = ({ InputDiv, setInputDiv }) => {
   let user = localStorage.getItem('user');
   let [tasks, setTasks] = useState([]);
@@ -31,7 +31,22 @@ let [InputDiv1,setInputDiv1]=useState("hidden")
     data = data.data.filter((d) => d.user == JSON.parse(user).id);
     setTasks([...data]);
   }
-
+async function handleStatusChange(task){
+  let formData={
+    id:task._id
+  }
+  let token=localStorage.getItem("token")
+  console.log(formData,token)
+  const response = await fetch('http://localhost:3001/api/v2/changestatus', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': `Bearer ${token}`,       
+    },
+    body: JSON.stringify(formData),
+  });
+  window.location.reload()
+}
   // Handle Like Button Click
   const handleLike = (task) => {
     console.log(`Liked task: ${task.title}`);
@@ -82,7 +97,7 @@ let [InputDiv1,setInputDiv1]=useState("hidden")
             <h2 className='text-xl font-semibold text-gray-800'>{task.title}</h2>
             <p className='text-sm text-gray-500 mt-2'>{task.desc || 'No description available.'}</p>
             <div className='mt-4 flex justify-between'>
-              <p className={`text-sm ${task.status === 'Completed' ? 'text-green-600' : 'text-yellow-500'}`}>
+              <p className={`text-sm ${task.complete ? 'text-green-600' : 'text-yellow-500'}`}>
                 Status: {task.complete?"Completed":"Incomplete"}
               </p>
               {/* <p className='text-sm text-gray-500'>Due: {task.dueDate || 'N/A'}</p> */}
@@ -94,20 +109,26 @@ let [InputDiv1,setInputDiv1]=useState("hidden")
              
 
               {/* Edit Button */}
-              <button
-                className='text-blue-500 hover:text-blue-700 transition-colors'
-                onClick={() => handleEdit(task)}
-              >
-                <FaEdit className='text-2xl' />
-              </button>
+           {
+user && JSON.parse(user).role=="manager" &&
+<>
+<button
+  className='text-blue-500 hover:text-blue-700 transition-colors'
+  onClick={() => handleEdit(task)}
+>
+  <FaEdit className='text-2xl' />
+</button>
 
-              {/* Delete Button */}
-              <button
-                className='text-gray-700 hover:text-gray-900 transition-colors'
-                onClick={() => handleDelete(task)}
-              >
-                <MdDelete className='text-2xl' />
-              </button>
+{/* Delete Button */}
+<button
+  className='text-gray-700 hover:text-gray-900 transition-colors'
+  onClick={() => handleDelete(task)}
+>
+  <MdDelete className='text-2xl' />
+</button>
+<FaCheck onClick={()=>handleStatusChange(task)}/>
+</>
+           }
             </div>
           </div>
         ))}

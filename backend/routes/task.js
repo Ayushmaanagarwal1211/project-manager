@@ -14,7 +14,7 @@ router.post("/create-task", authenticateToken, async (req, res) => {
         }
 
         // Create and save new task
-        const newTask = new Task({ title, desc,user,complete:false ,project,member});
+        const newTask = new Task({ title, desc,user,complete:false ,project,member , status:false});
         const savedTask = await newTask.save();
         // Update user with new task reference 
         // await User.findByIdAndUpdate(userId, { $push: { tasks: savedTask._id } });
@@ -171,5 +171,16 @@ router.post("/get-tasks", async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
-
+router.put("/changestatus", authenticateToken, async (req, res) => {
+    try {
+        const { id } = req.body; 
+        const taskData = await Task.findById(id);
+        const isComplete = taskData.complete;
+        await Task.findByIdAndUpdate(id, { complete: !isComplete });
+        res.status(200).json({ message: "Task updated successfully" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+});
 module.exports = router;

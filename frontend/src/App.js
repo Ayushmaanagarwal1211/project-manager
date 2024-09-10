@@ -12,6 +12,7 @@ import CompletedTasks from './pages/Completedtasks';
 import IncompletedTasks from './pages/Incompletedtasks';
 import AddProject from './components/AddProject';
 import Dash from './pages/Dash';
+import Projectdetails from './pages/Projectdetails';
 // import AddProject from './components/AddProject';
 function App() {
 
@@ -35,6 +36,9 @@ function App() {
 
 
           <Route path="/admin" element={<AddProject/>}></Route>
+          <Route path='/incompletetasks' element={<IncompletedTasks/>}></Route>
+          <Route path='/completedtasks' element={<CompletedTasks/>}></Route>
+<Route path='/projectdetails' element={<Projectdetails/>}></Route>
         </Routes>
       </BrowserRouter>
     </>

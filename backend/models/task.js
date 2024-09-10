@@ -15,7 +15,8 @@ const taskSchema = new mongoose.Schema({
         default: false
     },
     user:{type:String},project:{type:String},
-    member:{type:String}
+    member:{type:String},
+    status:{type:Boolean}
 }, { timestamps: true });
 
 const Task = mongoose.model("Task", taskSchema);
