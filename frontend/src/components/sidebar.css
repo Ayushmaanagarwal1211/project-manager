@@ -1,0 +1,236 @@
+/* Base styling for sidebar container */
+.sidebar {
+  background-color: #f5f5f5; /* Light background color */
+  color: #333; /* Dark text color for contrast */
+  height: 100vh;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Header styling */
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-header h2 {
+  font-size: 1.875rem;
+  font-weight: bold;
+  margin: 0;
+  color: #222; /* Darker text for the header */
+}
+
+.sidebar-header h4 {
+  margin: 0;
+  color: #666; /* Medium gray for secondary text */
+  font-size: 0.875rem;
+}
+
+.sidebar-header hr {
+  border-color: #ddd; /* Light gray border */
+  margin-top: 8px;
+}
+
+/* Sidebar navigation items */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-nav .sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+  color: #333; /* Dark text color */
+  text-decoration: none;
+}
+
+.sidebar-nav .sidebar-item:hover {
+  background-color: #e0e0e0; /* Light gray background on hover */
+  color: #000; /* Darker text color on hover */
+}
+
+.sidebar-nav .sidebar-item .icon {
+  font-size: 1.25rem;
+  margin-right: 8px;
+}
+
+.sidebar-nav .sidebar-item .title {
+  font-size: 1rem;
+}
+
+/* Logout button styling */
+.sidebar-footer {
+  margin-top: auto;
+}
+
+.sidebar-footer .logout-button {
+  background-color: #007bff; /* Bright primary color */
+  color: #fff; /* White text for contrast */
+  border: none;
+  width: 100%;
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 1rem;
+}
+
+.sidebar-footer .logout-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+/* Responsive design adjustments */
+@media (max-width: 640px) {
+  .sidebar-header h2 {
+      font-size: 1.5rem;
+  }
+
+  .sidebar-nav .sidebar-item {
+      font-size: 0.875rem;
+  }
+
+  .sidebar-footer .logout-button {
+      font-size: 0.875rem;
+  }
+}
+
+
+/* Notification button styling */
+.sidebar-notification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffdd57; /* Notification button color */
+  color: #333; /* Dark text color */
+  border: none;
+  width: 100%;
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.sidebar-notification:hover {
+  background-color: #fbbf24; /* Slightly darker color on hover */
+}
+
+/* Position notification button in the sidebar */
+.sidebar-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-footer .notification-button {
+  margin-top: 8px; /* Space above the button */
+}
+
+/* Notification button uses the same styles as sidebar items */
+.sidebar-notification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffdd57; /* Notification button color */
+  color: #333; /* Dark text color */
+  border: none;
+  width: 100%;
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.sidebar-notification:hover {
+  background-color: #fbbf24; /* Slightly darker color on hover */
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Base styling for sidebar container */
+.sidebar {
+  background-color: #f5f5f5;
+  color: #333;
+  height: 100vh;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar navigation items */
+.sidebar-nav .sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+  color: #333;
+  text-decoration: none;
+}
+
+.sidebar-nav .sidebar-item:hover {
+  background-color: #e0e0e0;
+  color: #000;
+}
+
+.sidebar-nav .sidebar-item .icon {
+  font-size: 1.25rem;
+  margin-right: 8px;
+}
+
+.sidebar-nav .sidebar-item .title {
+  font-size: 1rem;
+}
+
+/* Logout button styling */
+.sidebar-footer {
+  margin-top: auto;
+}
+
+
+/* Chat button */
+.sidebar-footer .sidebar-chat {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 4px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+  margin-bottom: 8px; /* Adds space between chat button and logout button */
+}
+
+.sidebar-footer .sidebar-chat:hover {
+  background-color: #e0e0e0;
+  color: #000;
+}
+
+.sidebar-footer .sidebar-chat .icon {
+  font-size: 1.25rem;
+  margin-right: 8px;
+}
+
+.sidebar-footer .sidebar-chat .title {
+  font-size: 1rem;
+}

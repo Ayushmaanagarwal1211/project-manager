@@ -1,0 +1,11 @@
+@media (max-width: 640px) {
+    .custom-modal {
+      width: 90%;
+      padding: 1rem;
+    }
+  
+    .custom-input,
+    .custom-textarea {
+      font-size: 0.875rem; /* Smaller font size on smaller screens */
+    }
+  }
