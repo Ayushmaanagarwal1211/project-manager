@@ -7,7 +7,7 @@ const { authenticateToken } = require("./auth");
 // SIGN IN API (register new user)
 router.post("/sign-in", async (req, res) => {
     try {
-        const { username, email, password ,role} = req.body;
+        const { username, email, password, role } = req.body;
         
         // Check if all fields are provided
         if (!username || !email || !password) {
@@ -22,7 +22,7 @@ router.post("/sign-in", async (req, res) => {
             return res.status(400).json({ message: "Password should have at least 6 characters" });
         }
         
-        // Check if username or email already exits
+        // Check if username or email already exists
         const existingUser = await User.findOne({ 
             $or: [{ username }, { email }] 
         });
@@ -39,7 +39,6 @@ router.post("/sign-in", async (req, res) => {
         // Hash the password before saving
         const hashPass = await bcrypt.hash(password, 10);
 
-
         const newUser = new User({
             username, 
             email,
@@ -47,8 +46,18 @@ router.post("/sign-in", async (req, res) => {
             role
         });
 
+        // Set the token in a cookie when the user registers
+        const token = jwt.sign({ id: newUser._id, email: newUser.email }, process.env.JWT_SECRET || 'tcmTM', { expiresIn: '2d' });
+
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            maxAge: 24 * 60 * 60 * 1000 // 1 day
+        });
+
         await newUser.save();
-        return res.status(200).json({message: "Signin successfully" });
+        return res.status(200).json({ message: "Sign in successfully" });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Internal Server Error" });
@@ -60,47 +69,52 @@ router.post("/log-in", async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Check if both fields are provided
         if (!email || !password) {
-            return res.status(400).json({ message: "Username and password are required." });
+            return res.status(400).json({ message: "Email and password are required." });
         }
 
-        // Find user by username
         const existingUser = await User.findOne({ email });
         if (!existingUser) {
             return res.status(400).json({ message: "Invalid Credentials" });
-        } 
+        }
 
-        // Compare the input password with the hashed password
         const isPasswordValid = await bcrypt.compare(password, existingUser.password);
         if (!isPasswordValid) {
             return res.status(400).json({ message: "Invalid Credentials" });
         }
-console.log(existingUser)
 
-        // Generate JWT Token
         const token = jwt.sign(
-           {
+            {
                 id: existingUser._id,
                 email: existingUser.email,
                 name: existingUser.username,
                 role: existingUser.role,
-                // Include other fields as needed
             },
-            process.env.JWT_SECRET || 'tcmTM',  // Use env variable for secret if available
+            process.env.JWT_SECRET || 'tcmTM',
             { expiresIn: '2d' }
         );
-        
-        // Return the user ID and token
-        return res.status(200).json({ id: existingUser._id, token,role:existingUser.role });
+
+        // Set the token in a cookie
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            maxAge: 24 * 60 * 60 * 1000 // 1 day
+        });
+
+        // Return the user ID, role, and token
+        return res.status(200).json({ id: existingUser._id, token, role: existingUser.role });
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ message: "Intenal Server Error" });
+        return res.status(500).json({ message: "Internal Server Error" });
     }
 });
+
 router.get("/users", async (req, res) => {
     try {
-        let users=await User.find()
+
+        let users = await User.find()
+        
         return res.status(200).json({users:users})
     } catch (error) {
         console.log(error);
